@@ -20,7 +20,14 @@ class FilmListVC: UITableViewController {
         
         CustomTableViewCell.setAttributesForCell(tableView: self.tableView)
         self.navigationItem.title = "Фильмы"
+        self.refreshControl?.addTarget(self, action: #selector(refresh), for: UIControl.Event.valueChanged)
         
+        getData()
+    }
+    
+    
+    // MARK: Func
+    func getData() {
         NetworkManager.fetchGenericJSON(urlString: urlString, type: Films.self, targetVC: self) { (decodedData) in
             
             self.data = decodedData
@@ -29,8 +36,6 @@ class FilmListVC: UITableViewController {
         }
     }
     
-    
-    // MARK: Func
     func createSectionSorting(_ data: Films) {
         
         var titles = [Int]()
@@ -50,5 +55,11 @@ class FilmListVC: UITableViewController {
             filmDictionary[element.year]!.append(element)
         }
         sections = titles.map { Section(title: String($0), films: filmDictionary[$0]!) }
+    }
+    
+    @objc func refresh(sender:AnyObject)
+    {
+        getData()
+        self.refreshControl?.endRefreshing()
     }
 }
