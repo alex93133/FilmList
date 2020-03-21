@@ -1,11 +1,10 @@
 import UIKit
 
-extension FilmInfoVC {
-    
+
+extension FilmInfoViewController {
     
     func fillRating(with rating: Double) {
-        
-        let ratingColor = CustomTableViewCell.changeColorForRating(rating)
+        let ratingColor = FilmTableViewCell.changeColorForRating(rating)
         let str = "Рейтинг: \(rating)"
         let attributedString = NSMutableAttributedString(string: str)
         
@@ -17,7 +16,6 @@ extension FilmInfoVC {
     }
     
     func fillDescription(_ description: String) {
-        
         let attributedStringParagraphStyle = NSMutableParagraphStyle()
         attributedStringParagraphStyle.lineSpacing = 7.0
         

@@ -1,34 +1,28 @@
 import UIKit
 
 
-class FilmInfoVC: UIViewController {
+class FilmInfoViewController: UIViewController {
     
-    
-    // MARK: Outlets
-    @IBOutlet weak var posterImage: UIImageView!
+    @IBOutlet weak var poster: UIImageView!
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var yearLabel: UILabel!
     @IBOutlet weak var ratingLabel: UILabel!
     @IBOutlet weak var descriptionTextView: UITextView!
+
+
+    var selectedFilmCell: Film!
+    var sections: [FilmSectionModel]!
     
-    // MARK: Properties
-    var selectedCell: (Int, Int)!
-    var sections: [Section]!
     
-    
-    // MARK: Overriden funcs
     override func viewDidLoad() {
         super.viewDidLoad()
         fillInfo()
     }
     
-    
-    // MARK: Funcs
     func fillInfo() {
+        let film = selectedFilmCell!
         
-        let film = sections[selectedCell.0].films[selectedCell.1]
-        
-        self.navigationItem.title = film.localized_name
+        navigationItem.title = film.localized_name
         
         nameLabel.text = film.name
         yearLabel.text = "Год: \(film.year)"
@@ -42,7 +36,7 @@ class FilmInfoVC: UIViewController {
         }
         
         if let image = film.image {
-            posterImage.image = image
+            poster.image = image
         }
     }
 }

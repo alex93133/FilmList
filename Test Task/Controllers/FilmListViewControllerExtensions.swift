@@ -1,18 +1,9 @@
 import UIKit
 
 
-// MARK: - Section
-struct Section {
-    let title : String
-    let films : [Film]
-}
-
-
 // MARK: - FilmListVC TableView extension
-extension FilmListVC {
+extension FilmListViewController {
     
-    
-    // MARK: Overriden funcs
     override func numberOfSections(in tableView: UITableView) -> Int {
         return sections.isEmpty ? 1 : sections.count
     }
@@ -26,8 +17,7 @@ extension FilmListVC {
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
-        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell") as! CustomTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell") as! FilmTableViewCell
         
         let section = sections[indexPath.section]
         
@@ -36,28 +26,20 @@ extension FilmListVC {
         
         if let rating = section.films[indexPath.row].rating {
             cell.ratingLabel.text = "\(rating)"
-            cell.ratingLabel.textColor =  CustomTableViewCell.changeColorForRating(rating)
+            cell.ratingLabel.textColor =  FilmTableViewCell.changeColorForRating(rating)
         }
         return cell
     }
     
-    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 90
-    }
-    
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
-        let tuple: (Int, Int) = (indexPath.section, indexPath.row)
-        self.selectedCell = tuple
+        selectedFilmCell = sections[indexPath.section].films[indexPath.row]
         
         performSegue(withIdentifier: "showDetail", sender: nil)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        guard let dvc   = segue.destination as? FilmInfoViewController else { return }
         
-        guard let dvc   = segue.destination as? FilmInfoVC else { return }
-        
-        dvc.selectedCell = selectedCell
-        dvc.sections = sections
+        dvc.selectedFilmCell = selectedFilmCell
     }
 }

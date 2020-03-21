@@ -1,35 +1,26 @@
 import UIKit
 
 
-class FilmListVC: UITableViewController {
-    
-    
-    // MARK: Properties
-    var data: Films?
+class FilmListViewController: UITableViewController {
     
     let urlString = "https://s3-eu-west-1.amazonaws.com/sequeniatesttask/films.json"
-    var selectedCell : (Int, Int)?
+    var data: Films?
+    var selectedFilmCell : Film?
+    var sections = [FilmSectionModel]()
     
-    var sections = [Section]()
     
-    
-    // MARK: Overriden funcs
     override func viewDidLoad() {
-        
         super.viewDidLoad()
         
-        CustomTableViewCell.setAttributesForCell(tableView: self.tableView)
-        self.navigationItem.title = "Фильмы"
-        self.refreshControl?.addTarget(self, action: #selector(refresh), for: UIControl.Event.valueChanged)
+        FilmTableViewCell.setAttributesForCell(tableView: self.tableView)
+        navigationItem.title = "Фильмы"
+        refreshControl?.addTarget(self, action: #selector(refresh), for: UIControl.Event.valueChanged)
         
         getData()
     }
     
-    
-    // MARK: Func
     func getData() {
         NetworkManager.fetchGenericJSON(urlString: urlString, type: Films.self, targetVC: self) { (decodedData) in
-            
             self.data = decodedData
             self.createSectionSorting(self.data!)
             self.tableView.reloadData()
@@ -37,7 +28,6 @@ class FilmListVC: UITableViewController {
     }
     
     func createSectionSorting(_ data: Films) {
-        
         var titles = [Int]()
         titles = data.films.map({ (film) -> Int in
             film.year
@@ -54,12 +44,11 @@ class FilmListVC: UITableViewController {
             }
             filmDictionary[element.year]!.append(element)
         }
-        sections = titles.map { Section(title: String($0), films: filmDictionary[$0]!) }
+        sections = titles.map { FilmSectionModel(title: String($0), films: filmDictionary[$0]!) }
     }
     
-    @objc func refresh(sender:AnyObject)
-    {
+    @objc func refresh(sender:AnyObject) {
         getData()
-        self.refreshControl?.endRefreshing()
+        refreshControl?.endRefreshing()
     }
 }

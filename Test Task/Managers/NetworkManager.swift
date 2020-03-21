@@ -3,9 +3,7 @@ import UIKit
 
 class NetworkManager {
     
-    
     static func decodeGenericJSON<T: Decodable>(type: T.Type, data: Data?) -> T? {
-        
         let decoder = JSONDecoder()
         guard let data = data else { return nil }
         do {
@@ -18,7 +16,6 @@ class NetworkManager {
     }
     
     static func fetchGenericJSON<T: Decodable>(urlString: String, type: T.Type, targetVC: UIViewController, clossure: @escaping (T?) -> Void) {
-       
         var decodedData : T?
         if let url = URL(string: urlString) {
             URLSession.shared.dataTask(with: url) { data, response, error in
@@ -29,7 +26,7 @@ class NetworkManager {
                     }
                     return
                 }
-                decodedData = self.decodeGenericJSON(type: type, data: data)
+                decodedData = decodeGenericJSON(type: type, data: data)
                 DispatchQueue.main.async {
                     clossure(decodedData)
                 }
@@ -38,7 +35,6 @@ class NetworkManager {
     }
     
     static func getImage(urlString: String) -> UIImage? {
-        
         let imageUrlString = urlString
         guard let imageUrl = URL(string: imageUrlString) else { return nil }
         let image = try? UIImage(withContentsOfUrl: imageUrl)
