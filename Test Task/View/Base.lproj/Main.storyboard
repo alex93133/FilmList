@@ -143,13 +143,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="EQs-Vz-oOG"/>
                     </view>
-                    <navigationItem key="navigationItem" id="VEk-LE-w9T">
-                        <barButtonItem key="rightBarButtonItem" title="Item" id="qd8-41-YAZ">
-                            <connections>
-                                <action selector="test:" destination="PZw-Ws-6mh" id="rhI-Za-Y8f"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" id="VEk-LE-w9T"/>
                     <connections>
                         <outlet property="descriptionTextView" destination="4kE-In-NlM" id="CgS-4w-V5U"/>
                         <outlet property="nameLabel" destination="qTI-mJ-s8V" id="SPg-k4-FDY"/>

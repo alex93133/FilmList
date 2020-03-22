@@ -9,7 +9,7 @@ class FilmTableViewCell: UITableViewCell {
     
 
     static func setAttributesForCell(tableView: UITableView) {
-        tableView.tableFooterView    = UIView()
+        tableView.tableFooterView = UIView()
     }
     
     static func changeColorForRating(_ rating: Double) -> UIColor {

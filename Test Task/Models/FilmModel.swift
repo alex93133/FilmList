@@ -17,13 +17,5 @@ struct Film: Decodable {
     let image_url: String?
     let description: String?
     let genres: [String]
-    
-    var image: UIImage? {
-        if let imageURL = self.image_url {
-            let image = NetworkManager.getImage(urlString: imageURL)
-            return image
-        }
-        return nil
-    }
 }
 

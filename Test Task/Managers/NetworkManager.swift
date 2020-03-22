@@ -33,11 +33,4 @@ class NetworkManager {
             }.resume()
         }
     }
-    
-    static func getImage(urlString: String) -> UIImage? {
-        let imageUrlString = urlString
-        guard let imageUrl = URL(string: imageUrlString) else { return nil }
-        let image = try? UIImage(withContentsOfUrl: imageUrl)
-        return image
-    }
 }

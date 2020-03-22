@@ -20,10 +20,10 @@ class FilmListViewController: UITableViewController {
     }
     
     func getData() {
-        NetworkManager.fetchGenericJSON(urlString: urlString, type: Films.self, targetVC: self) { (decodedData) in
-            self.data = decodedData
-            self.createSectionSorting(self.data!)
-            self.tableView.reloadData()
+        NetworkManager.fetchGenericJSON(urlString: urlString, type: Films.self, targetVC: self) { [weak self] (decodedData) in
+            self?.data = decodedData
+            self?.createSectionSorting(self!.data!)
+            self?.tableView.reloadData()
         }
     }
     

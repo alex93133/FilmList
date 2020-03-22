@@ -8,8 +8,8 @@ class FilmInfoViewController: UIViewController {
     @IBOutlet weak var yearLabel: UILabel!
     @IBOutlet weak var ratingLabel: UILabel!
     @IBOutlet weak var descriptionTextView: UITextView!
-
-
+    
+    
     var selectedFilmCell: Film!
     var sections: [FilmSectionModel]!
     
@@ -35,8 +35,8 @@ class FilmInfoViewController: UIViewController {
             fillRating(with: rating)
         }
         
-        if let image = film.image {
-            poster.image = image
+        if let urlString = film.image_url {
+            poster.imageFromServerURL(urlString: urlString, defaultImage: nil)
         }
     }
 }
