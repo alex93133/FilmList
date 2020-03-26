@@ -14,11 +14,14 @@ func imageFromServerURL(urlString: String, defaultImage : String?) {
             print(error?.localizedDescription ?? "Error")
             return
         }
-        DispatchQueue.main.async(execute: { () -> Void in
+        
+        let queue = DispatchQueue.global(qos: .userInitiated)
+        queue.async {
             let image = UIImage(data: data!)
-            self.image = image
-        })
-
+            DispatchQueue.main.async {
+                self.image = image
+            }
+        }
     }).resume()
   }
 }
